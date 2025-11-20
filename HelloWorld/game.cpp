@@ -47,8 +47,8 @@ void StepFrame(float elapsedTime)
 		if (IsColliding(gPaddle, ball))
 		{
 			ball.velocity.y = -ball.velocity.y;
-
-
+			gPaddle.color = cGreen;
+			gPaddle.colorFrames = 10;
 		}
 
 		if (ball.pos.x < 0 || ball.pos.x > DISPLAY_WIDTH)
@@ -81,6 +81,10 @@ void SetupScene()
 	int totalGridWitdh = brickColumns * brickWidth + (brickColumns - 1) * padding;
 
 	float startX = (DISPLAY_WIDTH - totalGridWitdh) / 2.0f;
+
+	// Setup paddle position
+	gPaddle.pos.x = static_cast<float>(DISPLAY_WIDTH) * 0.5f;
+	gPaddle.pos.y = static_cast<float>(gPaddle.height) * 0.5f + 20.0f;
 
 	float topYDistance = 20.0f;
 	float startY = static_cast<float>(DISPLAY_HEIGHT) - topYDistance - brickHeight * 0.5f;

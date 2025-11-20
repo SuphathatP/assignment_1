@@ -14,7 +14,7 @@ void DrawPaddle(const Paddle& paddle)
 	Point2f bottomLeft{ paddle.pos.x - halfWidth, paddle.pos.y - halfHeight };
 	Point2f topRight{ paddle.pos.x + halfWidth, paddle.pos.y + halfHeight };
 
-	DrawRect(bottomLeft, topRight, cCyan, true);
+	DrawRect(bottomLeft, topRight, paddle.color, true);
 }
 
 void UpdatePaddle()
@@ -34,4 +34,15 @@ void UpdatePaddle()
 	// Clamp paddle to screen size
 	const float halfWidth = gPaddle.width * 0.5;
 	gPaddle.pos.x = clamp(gPaddle.pos.x, halfWidth, static_cast<float>(DISPLAY_WIDTH) - halfWidth);
+
+	// Handle temporary hit-colour timer (frames)
+	if (gPaddle.colorFrames > 0)
+	{
+		--gPaddle.colorFrames;
+		
+		if (gPaddle.colorFrames == 0)
+		{
+			gPaddle.color = gPaddle.defaultColor;
+		}
+	}
 }
